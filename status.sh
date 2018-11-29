@@ -65,7 +65,7 @@ check_pid_client(){
 }
 Download_Server_Status_server(){
 	cd "/tmp"
-	wget -N --no-check-certificate "https://github.com/ToyoDAdoubi/ServerStatus-Toyo/archive/master.zip"
+	wget -N --no-check-certificate "https://github.com/ihomelp07/ServerStatus-Toyo/archive/master.zip"
 	[[ ! -e "master.zip" ]] && echo -e "${Error} ServerStatus 服务端下载失败 !" && exit 1
 	unzip master.zip
 	rm -rf master.zip
@@ -100,7 +100,7 @@ Download_Server_Status_server(){
 }
 Download_Server_Status_client(){
 	cd "/tmp"
-	wget -N --no-check-certificate "https://raw.githubusercontent.com/ToyoDAdoubi/ServerStatus-Toyo/master/clients/status-client.py"
+	wget -N --no-check-certificate "https://raw.githubusercontent.com/ihomelp07/ServerStatus-Toyo/master/clients/status-client.py"
 	[[ ! -e "status-client.py" ]] && echo -e "${Error} ServerStatus 客户端下载失败 !" && exit 1
 	cd "${file_1}"
 	[[ ! -e "${file}" ]] && mkdir "${file}"
@@ -127,14 +127,14 @@ Download_Server_Status_client(){
 }
 Service_Server_Status_server(){
 	if [[ ${release} = "centos" ]]; then
-		if ! wget --no-check-certificate "https://raw.githubusercontent.com/ToyoDAdoubi/doubi/master/other/server_status_server_centos" -O /etc/init.d/status-server; then
+		if ! wget --no-check-certificate "https://raw.githubusercontent.com/ihomelp07/doubi/master/other/server_status_server_centos" -O /etc/init.d/status-server; then
 			echo -e "${Error} ServerStatus 服务端服务管理脚本下载失败 !" && exit 1
 		fi
 		chmod +x /etc/init.d/status-server
 		chkconfig --add status-server
 		chkconfig status-server on
 	else
-		if ! wget --no-check-certificate "https://raw.githubusercontent.com/ToyoDAdoubi/doubi/master/other/server_status_server_debian" -O /etc/init.d/status-server; then
+		if ! wget --no-check-certificate "https://raw.githubusercontent.com/ihomelp07/doubi/master/other/server_status_server_debian" -O /etc/init.d/status-server; then
 			echo -e "${Error} ServerStatus 服务端服务管理脚本下载失败 !" && exit 1
 		fi
 		chmod +x /etc/init.d/status-server
@@ -144,14 +144,14 @@ Service_Server_Status_server(){
 }
 Service_Server_Status_client(){
 	if [[ ${release} = "centos" ]]; then
-		if ! wget --no-check-certificate "https://raw.githubusercontent.com/ToyoDAdoubi/doubi/master/other/server_status_client_centos" -O /etc/init.d/status-client; then
+		if ! wget --no-check-certificate "https://raw.githubusercontent.com/ihomelp07/doubi/master/other/server_status_client_centos" -O /etc/init.d/status-client; then
 			echo -e "${Error} ServerStatus 客户端服务管理脚本下载失败 !" && exit 1
 		fi
 		chmod +x /etc/init.d/status-client
 		chkconfig --add status-client
 		chkconfig status-client on
 	else
-		if ! wget --no-check-certificate "https://raw.githubusercontent.com/ToyoDAdoubi/doubi/master/other/server_status_client_debian" -O /etc/init.d/status-client; then
+		if ! wget --no-check-certificate "https://raw.githubusercontent.com/ihomelp07/doubi/master/other/server_status_client_debian" -O /etc/init.d/status-client; then
 			echo -e "${Error} ServerStatus 客户端服务管理脚本下载失败 !" && exit 1
 		fi
 		chmod +x /etc/init.d/status-client
@@ -644,7 +644,7 @@ Install_caddy(){
 	[[ -z "$caddy_yn" ]] && caddy_yn="y"
 	if [[ "${caddy_yn}" == [Yy] ]]; then
 		if [[ ! -e "/usr/local/caddy/caddy" ]]; then
-			wget -N --no-check-certificate https://raw.githubusercontent.com/ToyoDAdoubi/doubi/master/caddy_install.sh
+			wget -N --no-check-certificate https://raw.githubusercontent.com/ihomelp07/doubi/master/caddy_install.sh
 			chmod +x caddy_install.sh
 			bash caddy_install.sh install
 			rm -rf caddy_install.sh
@@ -796,7 +796,7 @@ Uninstall_ServerStatus_server(){
 		rm -rf "/etc/init.d/status-server"
 		if [[ -e "/etc/init.d/caddy" ]]; then
 			/etc/init.d/caddy stop
-			wget -N --no-check-certificate https://raw.githubusercontent.com/ToyoDAdoubi/doubi/master/caddy_install.sh
+			wget -N --no-check-certificate https://raw.githubusercontent.com/ihomelp07/doubi/master/caddy_install.sh
 			chmod +x caddy_install.sh
 			bash caddy_install.sh uninstall
 			rm -rf caddy_install.sh
@@ -919,12 +919,12 @@ Set_iptables(){
 Update_Shell(){
 	softs_domain=$(wget --no-check-certificate -qO- -t1 -T3 "https://doub.pw/new_softs.txt")
 	if [[ -z ${softs_domain} ]]; then
-		softs_domain="https://raw.githubusercontent.com/ToyoDAdoubi/doubi/master/"
+		softs_domain="https://raw.githubusercontent.com/ihomelp07/doubi/master/"
 	else
 		softs_domain="https://${softs_domain}/Bash/"
 	fi
 	sh_new_ver=$(wget --no-check-certificate -qO- -t1 -T3 "${softs_domain}status.sh"|grep 'sh_ver="'|awk -F "=" '{print $NF}'|sed 's/\"//g'|head -1) && sh_new_type="softs"
-	[[ -z ${sh_new_ver} ]] && sh_new_ver=$(wget --no-check-certificate -qO- -t1 -T3 "https://raw.githubusercontent.com/ToyoDAdoubi/doubi/master/status.sh"|grep 'sh_ver="'|awk -F "=" '{print $NF}'|sed 's/\"//g'|head -1) && sh_new_type="github"
+	[[ -z ${sh_new_ver} ]] && sh_new_ver=$(wget --no-check-certificate -qO- -t1 -T3 "https://raw.githubusercontent.com/ihomelp07/doubi/master/status.sh"|grep 'sh_ver="'|awk -F "=" '{print $NF}'|sed 's/\"//g'|head -1) && sh_new_type="github"
 	[[ -z ${sh_new_ver} ]] && echo -e "${Error} 无法链接到 逗比云 或 Github !" && exit 0
 	if [[ -e "/etc/init.d/status-client" ]]; then
 		rm -rf /etc/init.d/status-client
@@ -937,7 +937,7 @@ Update_Shell(){
 	if [[ $sh_new_type == "softs" ]]; then
 		wget -N --no-check-certificate "${softs_domain}status.sh" && chmod +x status.sh
 	else
-		wget -N --no-check-certificate "https://raw.githubusercontent.com/ToyoDAdoubi/doubi/master/status.sh" && chmod +x status.sh
+		wget -N --no-check-certificate "https://raw.githubusercontent.com/ihomelp07/doubi/master/status.sh" && chmod +x status.sh
 	fi
 	echo -e "脚本已更新为最新版本[ ${sh_new_ver} ] !(注意：因为更新方式为直接覆盖当前运行的脚本，所以可能下面会提示一些报错，无视即可)" && exit 0
 }

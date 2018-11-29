@@ -127,23 +127,23 @@ Download_aria2(){
 }
 Download_aria2_conf(){
 	mkdir "${file}" && cd "${file}"
-	wget --no-check-certificate -N "https://raw.githubusercontent.com/ToyoDAdoubi/doubi/master/other/Aria2/aria2.conf"
+	wget --no-check-certificate -N "https://raw.githubusercontent.com/ihomelp07/doubi/master/other/Aria2/aria2.conf"
 	[[ ! -s "aria2.conf" ]] && echo -e "${Error} Aria2 配置文件下载失败 !" && rm -rf "${file}" && exit 1
-	wget --no-check-certificate -N "https://raw.githubusercontent.com/ToyoDAdoubi/doubi/master/other/Aria2/dht.dat"
+	wget --no-check-certificate -N "https://raw.githubusercontent.com/ihomelp07/doubi/master/other/Aria2/dht.dat"
 	[[ ! -s "dht.dat" ]] && echo -e "${Error} Aria2 DHT文件下载失败 !" && rm -rf "${file}" && exit 1
 	echo '' > aria2.session
 	sed -i 's/^rpc-secret=DOUBIToyo/rpc-secret='$(date +%s%N | md5sum | head -c 20)'/g' ${aria2_conf}
 }
 Service_aria2(){
 	if [[ ${release} = "centos" ]]; then
-		if ! wget --no-check-certificate https://raw.githubusercontent.com/ToyoDAdoubi/doubi/master/other/aria2_centos -O /etc/init.d/aria2; then
+		if ! wget --no-check-certificate https://raw.githubusercontent.com/ihomelp07/doubi/master/other/aria2_centos -O /etc/init.d/aria2; then
 			echo -e "${Error} Aria2服务 管理脚本下载失败 !" && exit 1
 		fi
 		chmod +x /etc/init.d/aria2
 		chkconfig --add aria2
 		chkconfig aria2 on
 	else
-		if ! wget --no-check-certificate https://raw.githubusercontent.com/ToyoDAdoubi/doubi/master/other/aria2_debian -O /etc/init.d/aria2; then
+		if ! wget --no-check-certificate https://raw.githubusercontent.com/ihomelp07/doubi/master/other/aria2_debian -O /etc/init.d/aria2; then
 			echo -e "${Error} Aria2服务 管理脚本下载失败 !" && exit 1
 		fi
 		chmod +x /etc/init.d/aria2
@@ -561,12 +561,12 @@ Set_iptables(){
 Update_Shell(){
 	softs_domain=$(wget --no-check-certificate -qO- -t1 -T3 "https://doub.pw/new_softs.txt")
 	if [[ -z ${softs_domain} ]]; then
-		softs_domain="https://raw.githubusercontent.com/ToyoDAdoubi/doubi/master/"
+		softs_domain="https://raw.githubusercontent.com/ihomelp07/doubi/master/"
 	else
 		softs_domain="https://${softs_domain}/Bash/"
 	fi
 	sh_new_ver=$(wget --no-check-certificate -qO- -t1 -T3 "${softs_domain}aria2.sh"|grep 'sh_ver="'|awk -F "=" '{print $NF}'|sed 's/\"//g'|head -1) && sh_new_type="softs"
-	[[ -z ${sh_new_ver} ]] && sh_new_ver=$(wget --no-check-certificate -qO- -t1 -T3 "https://raw.githubusercontent.com/ToyoDAdoubi/doubi/master/aria2.sh"|grep 'sh_ver="'|awk -F "=" '{print $NF}'|sed 's/\"//g'|head -1) && sh_new_type="github"
+	[[ -z ${sh_new_ver} ]] && sh_new_ver=$(wget --no-check-certificate -qO- -t1 -T3 "https://raw.githubusercontent.com/ihomelp07/doubi/master/aria2.sh"|grep 'sh_ver="'|awk -F "=" '{print $NF}'|sed 's/\"//g'|head -1) && sh_new_type="github"
 	[[ -z ${sh_new_ver} ]] && echo -e "${Error} 无法链接到 逗比云 或 Github !" && exit 0
 	if [[ -e "/etc/init.d/aria2" ]]; then
 		rm -rf /etc/init.d/aria2
@@ -575,7 +575,7 @@ Update_Shell(){
 	if [[ ${sh_new_type} == "softs" ]]; then
 		wget -N --no-check-certificate "${softs_domain}aria2.sh" && chmod +x aria2.sh
 	else
-		wget -N --no-check-certificate "https://raw.githubusercontent.com/ToyoDAdoubi/doubi/master/aria2.sh" && chmod +x aria2.sh
+		wget -N --no-check-certificate "https://raw.githubusercontent.com/ihomelp07/doubi/master/aria2.sh" && chmod +x aria2.sh
 	fi
 	echo -e "脚本已更新为最新版本[ ${sh_new_ver} ] !(注意：因为更新方式为直接覆盖当前运行的脚本，所以可能下面会提示一些报错，无视即可)" && exit 0
 }
